@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Website</title>
+    <style>
+        body {
+            background-color: aqua;
+        }
+        .box {
+            margin-top: 40px;
+            height: 350px;
+            width: 400px;
+            display: block;
+            margin: auto;
+            border: 3px solid #ffc0cb;
+            text-align: center;
+            background-color: pink;
+            border-radius: 24px;
+            position: relative;
+        }
+        #yes, #maybe, #no {
+            color: black;
+            background-color: azure;
+            margin: 13px;
+            padding: 3px;
+            border: 3px solid azure;
+            border-radius: 13px;
+            width: 70px;
+            height: 30px;
+            cursor: pointer;
+        }
+        #no {
+            position: absolute;
+        }
+        #myImage, #peachImage {
+            display: none; /* Hide the images initially */
+            width: 200px;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="box">
+        <h1 id="head">Do you like me?</h1>
+        <button id="yes" onclick="fn()">Yes</button>
+        <button id="maybe" onclick="maybe()">Maybe</button>
+        <button id="no" onclick="fx()">No</button>
+        <img id="myImage" src="images/jump-up.gif" alt="jump-up">
+        <img id="peachImage" src="images/peach-cat-crying-peach-goma.gif" alt="peach-cat-crying-peach-goma">
+    </div>
+</body>
+<script>
+    const yesbtn = document.getElementById("yes");
+    const maybebtn = document.getElementById("maybe");
+    const heading = document.getElementById("head");
+
+    const peachImage = document.getElementById("peachImage");
+    const myImage = document.getElementById("myImage");
+
+    let maybeClickedOnce = false;  // Flag to track if Maybe was clicked once
+    let yesClickedOnce = false;    // Flag to track if Yes was clicked after Maybe
+    let totalClicks = 0;           // Counter to track the total number of Yes/Maybe clicks
+
+    function fn() {
+        // Increment the total click count when Yes is clicked
+        totalClicks++;
+
+        if (totalClicks >= 4) {
+            // After 4 clicks, show "I like you too!" and jump-up.gif
+            heading.innerHTML = "I like you too!";
+            myImage.style.display = "block";  // Show jump-up.gif
+            peachImage.style.display = "none";  // Hide the peach crying image
+        } else {
+            if (yesClickedOnce) {
+                heading.innerHTML = "Are you *really* sure about that?";
+                peachImage.style.display = "block";  // Show the peach crying image
+                yesClickedOnce = false; // Reset for future interactions if necessary
+            } else {
+                heading.innerHTML = "You Sure?";
+                yesClickedOnce = true;  // Mark Yes as clicked once
+            }
+        }
+    }
+
+    function fx() {
+        const btn = document.getElementById('no');
+        const x = Math.floor(Math.random() * 200) + 1; // Adjusted the random range to keep the button within the container
+        const y = Math.floor(Math.random() * 200) + 1; // Adjusted the random range to keep the button within the container
+        btn.style.top = x + "px";
+        btn.style.left = y + "px";
+    }
+
+    function maybe() {
+        // Increment the total click count when Maybe is clicked
+        totalClicks++;
+
+        if (totalClicks >= 4) {
+            // After 4 clicks, show "I like you too!" and jump-up.gif
+            heading.innerHTML = "I like you too!";
+            myImage.style.display = "block";  // Show jump-up.gif
+            peachImage.style.display = "none";  // Hide the peach crying image
+        } else {
+            if (maybeClickedOnce) {
+                heading.innerHTML = "No way!";
+                peachImage.style.display = "none";  // Hide the peach crying image
+                maybebtn.disabled = true; // Disable the Maybe button entirely after this
+            } else {
+                heading.innerHTML = "Really? Just Maybe?";
+                maybebtn.style.backgroundColor = "lightyellow"; // Change color when clicked once
+                maybeClickedOnce = true;  // Set flag to true after first click
+            }
+        }
+    }
+</script>
+</html>
